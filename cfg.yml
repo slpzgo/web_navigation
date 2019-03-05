@@ -1,0 +1,8 @@
+HTTPBind: :8081
+Mysql:
+  DbDsn: dev:h~,o(l=4#aiVOgBB@tcp(192.168.2.212:3306)/demo_shop?charset=utf8
+  ShowSql: true
+TestUrl: 192.168.2.124
+Redis:
+  Host: 192.168.2.220
+  port: :6379

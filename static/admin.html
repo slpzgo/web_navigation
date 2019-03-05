@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    　<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <script>
+        $(function() {
+            var str= '';
+            var selects = $('#selects');
+            $.ajax({
+                type: "GET",
+                url: "api/v1/admin/category",
+                dataType: "json",
+                success: function (data) {
+                    var list = data.list
+                    for(var i=0;i<list.length;i++) {
+                        console.log(list[i].name)
+                        str += '<option  value='+i+'>'+list[i].name+'</option>'
+                    }
+                    selects.append(str)
+                },
+                error: function (jqXHR) {
+                    console.log("Error: " + jqXHR.status);
+                }
+            });
+
+        })
+
+        function subLink()
+        {
+            linkName = $('.name').val();
+            href = $('.href').val();
+            categoryId = $('.categoryId').val();
+            description = $('.description').val();
+            isVip = 0;
+            console.log(linkName);
+            console.log(href);
+            $.ajax({
+                type: "POST",
+                url: "api/v1/admin/link",
+                dataType: "json",
+                data:{"name":linkName,"href":href,"description":description,"isVip":isVip},
+                success: function (data) {
+                    alert("添加成功")
+                    linkName = $('.name').val("");
+                    href = $('.href').val("");
+                    description = $('.description').val("");
+                },
+                error: function (jqXHR) {
+                    console.log("Error: " + jqXHR.status);
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+    <h1>admin后台</h1>
+    <div>
+        <p>链接提交:</p>
+    <input type="text" class = "name" placeholder="链接名">
+    <input type="text" class = "href" placeholder="链接地址">
+    <select name="category" id="selects" class="categoryId"></select>
+    <input type="submit" value="提交" onclick="subLink()">
+    </div>
+
+    <div>
+        <p>链接热度</p>
+
+    </div>
+</body>
+</html>
